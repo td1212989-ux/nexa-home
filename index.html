@@ -154,7 +154,7 @@
             width: 100%;
         }
 
-        /* --- CLEAN AD CONTAINERS (No borders, Seamless integration) --- */
+        /* --- CLEAN AD CONTAINERS --- */
         .ad-container {
             width: 100%;
             background-color: #18191a;
@@ -164,9 +164,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100px;
             overflow: hidden;
         }
+
+        /* Standard Ad Heights based on Formats */
+        .ad-native-box { min-height: 100px; }
+        .ad-banner-300-250 { min-height: 250px; }
+        .ad-banner-320-50 { min-height: 50px; }
+        .ad-banner-468-60 { min-height: 60px; }
+        .ad-banner-160-300 { min-height: 300px; max-width: 160px; margin: 0 auto; }
 
         /* News Cards */
         .news-card {
@@ -258,8 +264,9 @@
         </div>
 
         <!-- 💰 AD 1: NATIVE BANNER -->
-        <div class="ad-container" id="ad-slot-1">
-            <!-- Loader Placeholder -->
+        <div class="ad-container ad-native-box">
+            <script async="async" data-cfasync="false" src="//pl30356607.effectivecpmnetwork.com/b4b33bb62c0f98663a5e07d5730af6ed/invoke.js"></script>
+            <div id="container-b4b33bb62c0f98663a5e07d5730af6ed"></div>
         </div>
 
         <!-- News Card 1 -->
@@ -269,9 +276,18 @@
             <div class="news-meta">Tech News • 2 hours ago</div>
         </div>
 
-        <!-- 💰 AD 2: NATIVE BANNER -->
-        <div class="ad-container" id="ad-slot-2">
-            <!-- Loader Placeholder -->
+        <!-- 💰 AD 2: BANNER 320x50 -->
+        <div class="ad-container ad-banner-320-50">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '21294ff196fa304c6675f46e8b5df843',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/21294ff196fa304c6675f46e8b5df843/invoke.js"></script>
         </div>
 
         <!-- News Card 2 -->
@@ -281,14 +297,18 @@
             <div class="news-meta">Security Tech • 5 hours ago</div>
         </div>
 
-        <!-- 💰 AD 3: NATIVE BANNER -->
-        <div class="ad-container" id="ad-slot-3">
-            <!-- Loader Placeholder -->
-        </div>
-
-        <!-- 💰 AD 4: NATIVE BANNER -->
-        <div class="ad-container" id="ad-slot-4">
-            <!-- Loader Placeholder -->
+        <!-- 💰 AD 3: BANNER 468x60 -->
+        <div class="ad-container ad-banner-468-60">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '60a6b2d2fd113b8e1823248782b66fdc',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/60a6b2d2fd113b8e1823248782b66fdc/invoke.js"></script>
         </div>
 
         <!-- News Card 3 -->
@@ -298,8 +318,22 @@
             <div class="news-meta">Coding • 1 day ago</div>
         </div>
 
-        <!-- 💰 AD 5: BANNER 300x250 (ONLY ONE PLACE AT BOTTOM) -->
-        <div class="ad-container">
+        <!-- 💰 AD 4: BANNER 160x300 (Stylish Vertical Banner) -->
+        <div class="ad-container ad-banner-160-300">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'cf82c4959a15178cc47c5d9d241812118',
+                    'format' : 'iframe',
+                    'height' : 300,
+                    'width' : 160,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/cf82c4959a15178cc47c5d9d241812118/invoke.js"></script>
+        </div>
+
+        <!-- 💰 AD 5: BANNER 300x250 (Large Rectangle at Bottom) -->
+        <div class="ad-container ad-banner-300-250">
             <script type="text/javascript">
                 atOptions = {
                     'key' : '23e4847c9392ac973bbf1685869789a4',
@@ -321,38 +355,6 @@
                 alert("AI Mode click detected!");
             }
         }
-
-        // --- DYNAMIC AD CLONER FOR MULTIPLE NATIVE BANNERS ---
-        // This function dynamically generates independent containers and scripts for each slot.
-        function renderNativeAd(containerId, uniqueIdSuffix) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-
-            // Generate unique container ID for Adsterra's script to target
-            const targetContainerId = "container-b4b33bb62c0f98663a5e07d5730af6ed" + uniqueIdSuffix;
-            
-            // Create the div element
-            const adDiv = document.createElement('div');
-            adDiv.id = targetContainerId;
-            container.appendChild(adDiv);
-
-            // Create and append the script tag dynamically
-            const adScript = document.createElement('script');
-            adScript.async = true;
-            adScript.setAttribute('data-cfasync', 'false');
-            adScript.src = "//pl30356607.effectivecpmnetwork.com/b4b33bb62c0f98663a5e07d5730af6ed/invoke.js";
-            
-            // Append script to container
-            container.appendChild(adScript);
-        }
-
-        // Render all 4 native banners as soon as the page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            renderNativeAd('ad-slot-1', ''); // First slot
-            renderNativeAd('ad-slot-2', '-2'); // Second slot
-            renderNativeAd('ad-slot-3', '-3'); // Third slot
-            renderNativeAd('ad-slot-4', '-4'); // Fourth slot
-        });
 
         // --- REAL VOICE SEARCH (SPEECH RECOGNITION) ---
         const micBtn = document.getElementById('micBtn');
