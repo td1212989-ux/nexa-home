@@ -18,11 +18,16 @@
             overflow-y: auto;
             padding-bottom: 40px;
         }
+        
+        /* HEADER WITH THREE DOT MENU */
         header {
             width: 100%;
             display: flex;
             justify-content: flex-end;
+            align-items: center;
             padding: 16px 20px;
+            gap: 15px;
+            position: relative;
         }
         .sign-in-btn {
             background-color: #00dfa2;
@@ -33,6 +38,104 @@
             font-size: 13px;
             text-decoration: none;
         }
+        
+        /* Three Dot Menu Icon */
+        .menu-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            user-select: none;
+        }
+
+        /* Dropdown Menu Box */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: #1c1d22;
+            border: 1px solid #2b2c31;
+            border-radius: 12px;
+            width: 200px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+            z-index: 1000;
+            padding: 10px 0;
+        }
+        .dropdown-menu.show {
+            display: block;
+        }
+        .menu-item {
+            padding: 12px 16px;
+            color: #e4e6eb;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .menu-item:hover {
+            background-color: #2b2c31;
+        }
+        .menu-divider {
+            height: 1px;
+            background-color: #2b2c31;
+            margin: 8px 0;
+        }
+
+        /* TOGGLE SWITCH STYLING */
+        .toggle-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #e4e6eb;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #3a3b3c;
+            transition: .3s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #00dfa2;
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        /* --- FEED CONTAINER --- */
         .feed-container {
             width: 100%;
             max-width: 480px;
@@ -154,25 +257,35 @@
             width: 100%;
         }
 
-        /* --- CLEAN AD CONTAINERS --- */
+        /* --- STYLISH & RESPONSIVE AD CONTAINERS --- */
         .ad-container {
             width: 100%;
             background-color: #18191a;
             border-radius: 12px;
-            padding: 10px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        /* जब एड ब्लॉकर ऑन होगा, ये क्लास एक्टिव होगी */
+        .ad-blocked {
+            display: none !important;
         }
 
-        /* Standard Ad Heights based on Formats */
-        .ad-native-box { min-height: 100px; }
-        .ad-banner-300-250 { min-height: 250px; }
-        .ad-banner-320-50 { min-height: 50px; }
-        .ad-banner-468-60 { min-height: 60px; }
-        .ad-banner-160-300 { min-height: 300px; max-width: 160px; margin: 0 auto; }
+        /* Responsive Safe Heights for standard boxes */
+        .ad-native-box { 
+            min-height: 90px; 
+            width: 100%;
+        }
+        .ad-banner-300-250 { 
+            min-height: 250px; 
+            width: 300px; /* बिलकुल परफेक्ट 300x250 साइज */
+            margin: 0 auto;
+        }
 
         /* News Cards */
         .news-card {
@@ -212,6 +325,24 @@
 
     <header>
         <a href="#" class="sign-in-btn">Sign in</a>
+        <!-- Three Dot Button -->
+        <button class="menu-btn" id="menuBtn">⋮</button>
+        
+        <!-- Three Dot Dropdown Menu -->
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#" class="menu-item">Bookmarks</a>
+            <a href="#" class="menu-item">History</a>
+            <a href="#" class="menu-item">Settings</a>
+            <div class="menu-divider"></div>
+            <!-- Ad Blocker Toggle System -->
+            <div class="toggle-container">
+                <span>Ad Blocker</span>
+                <label class="switch">
+                    <input type="checkbox" id="adBlockToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
     </header>
 
     <div class="feed-container">
@@ -263,7 +394,7 @@
             </a>
         </div>
 
-        <!-- 💰 AD 1: NATIVE BANNER -->
+        <!-- 💰 AD 1: NATIVE BANNER (SLOT 1) -->
         <div class="ad-container ad-native-box">
             <script async="async" data-cfasync="false" src="//pl30356607.effectivecpmnetwork.com/b4b33bb62c0f98663a5e07d5730af6ed/invoke.js"></script>
             <div id="container-b4b33bb62c0f98663a5e07d5730af6ed"></div>
@@ -276,18 +407,18 @@
             <div class="news-meta">Tech News • 2 hours ago</div>
         </div>
 
-        <!-- 💰 AD 2: BANNER 320x50 -->
-        <div class="ad-container ad-banner-320-50">
+        <!-- 💰 AD 2: BANNER 300x250 (SLOT 2) -->
+        <div class="ad-container ad-banner-300-250">
             <script type="text/javascript">
                 atOptions = {
-                    'key' : '21294ff196fa304c6675f46e8b5df843',
+                    'key' : '23e4847c9392ac973bbf1685869789a4', // अपना पहला 300x250 कोड यहाँ रखें
                     'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
+                    'height' : 250,
+                    'width' : 300,
                     'params' : {}
                 };
             </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/21294ff196fa304c6675f46e8b5df843/invoke.js"></script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/23e4847c9392ac973bbf1685869789a4/invoke.js"></script>
         </div>
 
         <!-- News Card 2 -->
@@ -297,18 +428,18 @@
             <div class="news-meta">Security Tech • 5 hours ago</div>
         </div>
 
-        <!-- 💰 AD 3: BANNER 468x60 -->
-        <div class="ad-container ad-banner-468-60">
+        <!-- 💰 AD 3: BANNER 300x250 (SLOT 3 - NEW UNIT CODE) -->
+        <div class="ad-container ad-banner-300-250">
             <script type="text/javascript">
                 atOptions = {
-                    'key' : '60a6b2d2fd113b8e1823248782b66fdc',
+                    'key' : 'ADD_YOUR_SECOND_300X250_KEY_HERE', // अपना दूसरा 300x250 कोड की KEY यहाँ पेस्ट करें
                     'format' : 'iframe',
-                    'height' : 60,
-                    'width' : 468,
+                    'height' : 250,
+                    'width' : 300,
                     'params' : {}
                 };
             </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/60a6b2d2fd113b8e1823248782b66fdc/invoke.js"></script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/ADD_YOUR_SECOND_300X250_KEY_HERE/invoke.js"></script>
         </div>
 
         <!-- News Card 3 -->
@@ -318,36 +449,79 @@
             <div class="news-meta">Coding • 1 day ago</div>
         </div>
 
-        <!-- 💰 AD 4: BANNER 160x300 (Stylish Vertical Banner) -->
-        <div class="ad-container ad-banner-160-300">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : 'cf82c4959a15178cc47c5d9d241812118',
-                    'format' : 'iframe',
-                    'height' : 300,
-                    'width' : 160,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/cf82c4959a15178cc47c5d9d241812118/invoke.js"></script>
-        </div>
-
-        <!-- 💰 AD 5: BANNER 300x250 (Large Rectangle at Bottom) -->
+        <!-- 💰 AD 4: BANNER 300x250 (SLOT 4 - NEW UNIT CODE) -->
         <div class="ad-container ad-banner-300-250">
             <script type="text/javascript">
                 atOptions = {
-                    'key' : '23e4847c9392ac973bbf1685869789a4',
+                    'key' : 'ADD_YOUR_THIRD_300X250_KEY_HERE', // अपना तीसरा 300x250 कोड की KEY यहाँ पेस्ट करें
                     'format' : 'iframe',
                     'height' : 250,
                     'width' : 300,
                     'params' : {}
                 };
             </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/23e4847c9392ac973bbf1685869789a4/invoke.js"></script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/ADD_YOUR_THIRD_300X250_KEY_HERE/invoke.js"></script>
+        </div>
+
+        <!-- 💰 AD 5: BANNER 300x250 (SLOT 5 - NEW UNIT CODE) -->
+        <div class="ad-container ad-banner-300-250">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'ADD_YOUR_FOURTH_300X250_KEY_HERE', // अपना चौथा 300x250 कोड की KEY यहाँ पेस्ट करें
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/ADD_YOUR_FOURTH_300X250_KEY_HERE/invoke.js"></script>
         </div>
     </div>
 
     <script>
+        // --- DROPDOWN MENU HANDLER ---
+        const menuBtn = document.getElementById('menuBtn');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+            dropdownMenu.classList.remove('show');
+        });
+
+        dropdownMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // --- REAL-TIME AD BLOCKER SYSTEM ---
+        const adBlockToggle = document.getElementById('adBlockToggle');
+        const adContainers = document.querySelectorAll('.ad-container');
+
+        let isAdBlockActive = localStorage.getItem('nexaAdBlock') === 'true';
+        
+        adBlockToggle.checked = isAdBlockActive;
+        applyAdBlockState(isAdBlockActive);
+
+        adBlockToggle.addEventListener('change', (e) => {
+            const active = e.target.checked;
+            localStorage.setItem('nexaAdBlock', active);
+            applyAdBlockState(active);
+        });
+
+        function applyAdBlockState(hideAds) {
+            adContainers.forEach(container => {
+                if (hideAds) {
+                    container.classList.add('ad-blocked'); 
+                } else {
+                    container.classList.remove('ad-blocked'); 
+                }
+            });
+        }
+
+        // --- FLUTTER & VOICE SEARCH SCRIPTS ---
         function openFlutterAIChat() {
             if (window.FlutterInterface) {
                 window.FlutterInterface.postMessage("open_ai_chat");
@@ -356,7 +530,6 @@
             }
         }
 
-        // --- REAL VOICE SEARCH (SPEECH RECOGNITION) ---
         const micBtn = document.getElementById('micBtn');
         const searchBox = document.getElementById('searchBox');
         const searchForm = document.getElementById('searchForm');
