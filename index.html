@@ -99,7 +99,7 @@
             transition: fill 0.2s ease;
         }
         .mic-icon.listening {
-            fill: #ff0000; /* Recording state */
+            fill: #ff0000;
         }
         .ai-mode-btn {
             width: 100%;
@@ -154,7 +154,7 @@
             width: 100%;
         }
 
-        /* --- CLEAN MONETIZATION CONTAINER (No borders, Seamless integration) --- */
+        /* --- CLEAN AD CONTAINERS (No borders, Seamless integration) --- */
         .ad-container {
             width: 100%;
             background-color: #18191a;
@@ -216,7 +216,6 @@
             <div class="search-container">
                 <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
                 <input type="text" name="q" id="searchBox" class="search-box" placeholder="Search Nexa or type a URL" autocomplete="off" autofocus>
-                <!-- VOICE ICON -->
                 <svg class="mic-icon" id="micBtn" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"/></svg>
             </div>
         </form>
@@ -259,9 +258,8 @@
         </div>
 
         <!-- 💰 AD 1: NATIVE BANNER -->
-        <div class="ad-container">
-            <script async="async" data-cfasync="false" src="//pl30356607.effectivecpmnetwork.com/b4b33bb62c0f98663a5e07d5730af6ed/invoke.js"></script>
-            <div id="container-b4b33bb62c0f98663a5e07d5730af6ed"></div>
+        <div class="ad-container" id="ad-slot-1">
+            <!-- Loader Placeholder -->
         </div>
 
         <!-- News Card 1 -->
@@ -272,9 +270,8 @@
         </div>
 
         <!-- 💰 AD 2: NATIVE BANNER -->
-        <div class="ad-container">
-            <script async="async" data-cfasync="false" src="//pl30356607.effectivecpmnetwork.com/b4b33bb62c0f98663a5e07d5730af6ed/invoke.js"></script>
-            <div id="container-b4b33bb62c0f98663a5e07d5730af6ed-2"></div>
+        <div class="ad-container" id="ad-slot-2">
+            <!-- Loader Placeholder -->
         </div>
 
         <!-- News Card 2 -->
@@ -285,15 +282,13 @@
         </div>
 
         <!-- 💰 AD 3: NATIVE BANNER -->
-        <div class="ad-container">
-            <script async="async" data-cfasync="false" src="//pl30356607.effectivecpmnetwork.com/b4b33bb62c0f98663a5e07d5730af6ed/invoke.js"></script>
-            <div id="container-b4b33bb62c0f98663a5e07d5730af6ed-3"></div>
+        <div class="ad-container" id="ad-slot-3">
+            <!-- Loader Placeholder -->
         </div>
 
         <!-- 💰 AD 4: NATIVE BANNER -->
-        <div class="ad-container">
-            <script async="async" data-cfasync="false" src="//pl30356607.effectivecpmnetwork.com/b4b33bb62c0f98663a5e07d5730af6ed/invoke.js"></script>
-            <div id="container-b4b33bb62c0f98663a5e07d5730af6ed-4"></div>
+        <div class="ad-container" id="ad-slot-4">
+            <!-- Loader Placeholder -->
         </div>
 
         <!-- News Card 3 -->
@@ -303,7 +298,7 @@
             <div class="news-meta">Coding • 1 day ago</div>
         </div>
 
-        <!-- 💰 AD 5 (LAST SLOT): BANNER 300x250 (ONLY ONE PLACE) -->
+        <!-- 💰 AD 5: BANNER 300x250 (ONLY ONE PLACE AT BOTTOM) -->
         <div class="ad-container">
             <script type="text/javascript">
                 atOptions = {
@@ -326,6 +321,38 @@
                 alert("AI Mode click detected!");
             }
         }
+
+        // --- DYNAMIC AD CLONER FOR MULTIPLE NATIVE BANNERS ---
+        // This function dynamically generates independent containers and scripts for each slot.
+        function renderNativeAd(containerId, uniqueIdSuffix) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Generate unique container ID for Adsterra's script to target
+            const targetContainerId = "container-b4b33bb62c0f98663a5e07d5730af6ed" + uniqueIdSuffix;
+            
+            // Create the div element
+            const adDiv = document.createElement('div');
+            adDiv.id = targetContainerId;
+            container.appendChild(adDiv);
+
+            // Create and append the script tag dynamically
+            const adScript = document.createElement('script');
+            adScript.async = true;
+            adScript.setAttribute('data-cfasync', 'false');
+            adScript.src = "//pl30356607.effectivecpmnetwork.com/b4b33bb62c0f98663a5e07d5730af6ed/invoke.js";
+            
+            // Append script to container
+            container.appendChild(adScript);
+        }
+
+        // Render all 4 native banners as soon as the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            renderNativeAd('ad-slot-1', ''); // First slot
+            renderNativeAd('ad-slot-2', '-2'); // Second slot
+            renderNativeAd('ad-slot-3', '-3'); // Third slot
+            renderNativeAd('ad-slot-4', '-4'); // Fourth slot
+        });
 
         // --- REAL VOICE SEARCH (SPEECH RECOGNITION) ---
         const micBtn = document.getElementById('micBtn');
