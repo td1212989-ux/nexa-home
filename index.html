@@ -96,6 +96,10 @@
             width: 20px;
             height: 20px;
             cursor: pointer;
+            transition: fill 0.2s ease;
+        }
+        .mic-icon.listening {
+            fill: #ff0000; /* जब रिकॉर्डिंग चालू होगी तो माइक लाल हो जाएगा */
         }
         .ai-mode-btn {
             width: 100%;
@@ -150,31 +154,18 @@
             width: 100%;
         }
 
-        /* --- MONETIZATION ADS CONTAINER --- */
+        /* --- CLEAN MONETIZATION CONTAINER (No Border, No Ad Label) --- */
         .ad-container {
             width: 100%;
             background-color: #18191a;
-            border: 1px dashed #00dfa2;
             border-radius: 12px;
-            padding: 15px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 120px;
-            text-align: center;
+            min-height: 100px;
             overflow: hidden;
-        }
-        .ad-badge {
-            font-size: 10px;
-            font-weight: bold;
-            background-color: #00dfa2;
-            color: #0b0c0e;
-            padding: 2px 6px;
-            border-radius: 3px;
-            align-self: flex-start;
-            margin-bottom: 8px;
-            text-transform: uppercase;
         }
 
         /* News Cards */
@@ -220,11 +211,13 @@
     <div class="feed-container">
         <div class="brand-logo">nexa<span>.</span></div>
 
-        <form class="search-form" action="https://www.google.com/search" method="GET">
+        <!-- SEARCH FORM -->
+        <form class="search-form" id="searchForm" action="https://www.google.com/search" method="GET">
             <div class="search-container">
                 <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
-                <input type="text" name="q" class="search-box" placeholder="Search Nexa or type a URL" autocomplete="off" autofocus>
-                <svg class="mic-icon" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"/></svg>
+                <input type="text" name="q" id="searchBox" class="search-box" placeholder="Search Nexa or type a URL" autocomplete="off" autofocus>
+                <!-- VOICE ICON -->
+                <svg class="mic-icon" id="micBtn" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"/></svg>
             </div>
         </form>
 
@@ -265,9 +258,8 @@
             </a>
         </div>
 
-        <!-- 💰 AD 1 (Native Banner) -->
+        <!-- 💰 CLEAN NATIVE AD (No Borders, No Tags) -->
         <div class="ad-container">
-            <div class="ad-badge">AD 1</div>
             <script async="async" data-cfasync="false" src="//pl30356607.effectivecpmnetwork.com/264829d958c6e85b827bf3246b65c89e/invoke.js"></script>
             <div id="container-264829d958c6e85b827bf3246b65c89e"></div>
         </div>
@@ -279,9 +271,8 @@
             <div class="news-meta">Tech News • 2 hours ago</div>
         </div>
 
-        <!-- 💰 AD 2 (Banner 300x250) -->
+        <!-- 💰 CLEAN AD 2 -->
         <div class="ad-container">
-            <div class="ad-badge">AD 2</div>
             <script type="text/javascript">
                 atOptions = {
                     'key' : '8be1ab4a9e9226ac39c1cccb49ca562d',
@@ -301,9 +292,8 @@
             <div class="news-meta">Security Tech • 5 hours ago</div>
         </div>
 
-        <!-- 💰 AD 3 (Banner 300x250) -->
+        <!-- 💰 CLEAN AD 3 -->
         <div class="ad-container">
-            <div class="ad-badge">AD 3</div>
             <script type="text/javascript">
                 atOptions = {
                     'key' : '8be1ab4a9e9226ac39c1cccb49ca562d',
@@ -316,9 +306,8 @@
             <script type="text/javascript" src="//www.highperformanceformat.com/8be1ab4a9e9226ac39c1cccb49ca562d/invoke.js"></script>
         </div>
 
-        <!-- 💰 AD 4 (Banner 300x250) -->
+        <!-- 💰 CLEAN AD 4 -->
         <div class="ad-container">
-            <div class="ad-badge">AD 4</div>
             <script type="text/javascript">
                 atOptions = {
                     'key' : '8be1ab4a9e9226ac39c1cccb49ca562d',
@@ -338,9 +327,8 @@
             <div class="news-meta">Coding • 1 day ago</div>
         </div>
 
-        <!-- 💰 AD 5 (Banner 300x250) -->
+        <!-- 💰 CLEAN AD 5 -->
         <div class="ad-container">
-            <div class="ad-badge">AD 5</div>
             <script type="text/javascript">
                 atOptions = {
                     'key' : '8be1ab4a9e9226ac39c1cccb49ca562d',
@@ -361,6 +349,59 @@
             } else {
                 alert("AI Mode click detected!");
             }
+        }
+
+        // --- REAL VOICE SEARCH (SPEECH RECOGNITION) ---
+        const micBtn = document.getElementById('micBtn');
+        const searchBox = document.getElementById('searchBox');
+        const searchForm = document.getElementById('searchForm');
+
+        // Check if browser supports SpeechRecognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US'; // हिंदी के लिए 'hi-IN' भी कर सकते हैं
+            recognition.interimResults = false;
+
+            micBtn.addEventListener('click', () => {
+                recognition.start();
+            });
+
+            recognition.onstart = () => {
+                micBtn.classList.add('listening');
+                searchBox.placeholder = "Listening...";
+            };
+
+            recognition.onspeechend = () => {
+                recognition.stop();
+            };
+
+            recognition.onend = () => {
+                micBtn.classList.remove('listening');
+                searchBox.placeholder = "Search Nexa or type a URL";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                searchBox.value = transcript;
+                // आवाज़ पहचानते ही तुरंत Google सर्च सबमिट कर देगा
+                setTimeout(() => {
+                    searchForm.submit();
+                }, 500);
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Speech recognition error: ", event.error);
+                micBtn.classList.remove('listening');
+                searchBox.placeholder = "Search Nexa or type a URL";
+            };
+        } else {
+            // अगर मोबाइल/डिवाइस सपोर्ट न करे
+            micBtn.addEventListener('click', () => {
+                alert("Voice search is not supported on this browser.");
+            });
         }
     </script>
 </body>
